@@ -2,14 +2,17 @@ var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
 
 var id = 0;
-var newX = 0;
-var newY = 0;
+var newX = 300;
+var newY = 300;
 var state = 0;
 var size = 100;
+var changeX = 1;
+var changeY = 1;
 
 document.getElementById("animate").addEventListener("click", animate);
 document.getElementById("slate").addEventListener("click", draw);
 document.getElementById("stop").addEventListener("click", stop);
+document.getElementById("dvd").addEventListener("click", dvds);
 
 function draw(e) {
   console.log("draw");
@@ -18,8 +21,36 @@ function draw(e) {
   newY = e.offsetY;
 }
 
+function dvds() {
+  id = window.requestAnimationFrame(dvd);
+}
+
+function dvd() {
+  clear();
+  ctx.fillStyle = "#0000ff";
+  ctx.beginPath();
+  ctx.arc(newX, newY, size, 0, 2 * Math.PI);
+  if (newX >= 600 - size) {
+    changeX = -1 * Math.floor(Math.random() * 5);
+  }
+  if (newY >= 600 - size) {
+    changeY = -1 * Math.floor(Math.random() * 5);
+  }
+  if (newX <= 0 + size) {
+    changeX = 1 * Math.floor(Math.random() * 5);
+  }
+  if (newY <= 0 + size) {
+    changeY = 1 * Math.floor(Math.random() * 5);
+  }
+  newX += changeX;
+  newY += changeY;
+  ctx.stroke();
+  ctx.fill();
+  id = window.requestAnimationFrame(dvd);
+}
+
 function animate() {
-  window.requestAnimationFrame(circle2);
+  id = window.requestAnimationFrame(circle2);
 }
 
 function circle2() {
