@@ -9,6 +9,9 @@ var size = 100;
 var changeX = 1;
 var changeY = 1;
 
+var logo = new Image();
+logo.src = "dvd.png";
+
 document.getElementById("animate").addEventListener("click", animate);
 document.getElementById("slate").addEventListener("click", draw);
 document.getElementById("stop").addEventListener("click", stop);
@@ -27,20 +30,22 @@ function dvds() {
 
 function dvd() {
   clear();
+  window.cancelAnimationFrame(id);
   ctx.fillStyle = "#0000ff";
   ctx.beginPath();
-  ctx.arc(newX, newY, size, 0, 2 * Math.PI);
-  if (newX >= 600 - size) {
-    changeX = -1 * Math.floor(Math.random() * 5);
+  ctx.drawImage(logo, newX, newY, 100, 50);
+  //ctx.arc(newX, newY, size, 0, 2 * Math.PI);
+  if (newX >= 600 - 100) {
+    changeX = -1 * Math.floor(Math.random() * 2);
   }
-  if (newY >= 600 - size) {
-    changeY = -1 * Math.floor(Math.random() * 5);
+  if (newY >= 600 - 50) {
+    changeY = -1 * Math.floor(Math.random() * 2);
   }
-  if (newX <= 0 + size) {
-    changeX = 1 * Math.floor(Math.random() * 5);
+  if (newX <= 0) {
+    changeX = 1 * Math.floor(Math.random() * 2);
   }
-  if (newY <= 0 + size) {
-    changeY = 1 * Math.floor(Math.random() * 5);
+  if (newY <= 0) {
+    changeY = 1 * Math.floor(Math.random() * 2);
   }
   newX += changeX;
   newY += changeY;
@@ -55,6 +60,7 @@ function animate() {
 
 function circle2() {
   clear();
+  window.cancelAnimationFrame(id);
   ctx.fillStyle = "#0000ff";
   ctx.beginPath();
   if (state == 0) { //shrinking
